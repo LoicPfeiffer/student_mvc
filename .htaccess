@@ -1,0 +1,20 @@
+# Active la rééctirure des adresses
+RewriteEngine On
+
+# Définit les routes
+# L=Dernière règle à appliquer
+# QSA=Conserver les paramètres de la requête
+
+# ^ début de la chaîne
+# $ fin de la chaîne
+# (...) créé un groupe et ensuite on reproduit le groupe avec $1 $2 ...
+# /tag/delete/5  devient index.php?table=tag&op=delete&id=5
+
+RewriteRule "tag/delete\/([0-9]+)$" index.php?table=tag&op=delete&id=$1 [L,QSA]
+RewriteRule "tag/update\/([0-9]+)$" index.php?table=tag&op=update&id=$1 [L,QSA]
+RewriteRule "tag/insert" index.php?table=tag&op=insert [L,QSA]
+# Est-ce que la requête concerne un répertoire/fichier/lien qui n'existe pas ?
+# RewriteCond %{REQUEST_FILENAME} !-d   # d=directory
+# RewriteCond %{REQUEST_FILENAME} !-f     # f=fichier
+# RewriteCond %{REQUEST_FILENAME} !-l     # l=lien
+RewriteRule !\.(js|ico|gif|jpg|png|css)$ index.php [L,QSA]
